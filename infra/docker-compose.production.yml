@@ -8,12 +8,15 @@ volumes:
 services:
   db:
     image: postgres:13
-    env_file: ../backend/.env
+    env_file:
+      - .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+
   backend:
-    build: ../backend/
-    env_file: ../backend/.env
+    image: anyashmykova/foodgram_backend:latest
+    env_file:
+      - .env
     volumes:
       - static:/static
       - media:/media
@@ -21,17 +24,17 @@ services:
       - db
 
   frontend:
+    image: anyashmykova/foodgram_frontend:latest
     container_name: foodgram-front
-    build: ../frontend
     volumes:
       - ../frontend/:/app/result_build/
+
   nginx:
+    image: anyashmykova/foodgram_gateway:latest
     container_name: foodgram-proxy
-    image: nginx:1.25.4-alpine
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static:/static
@@ -39,4 +42,3 @@ services:
     depends_on:
       - backend
       - frontend
-
