@@ -15,14 +15,14 @@ class Tag(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=128)
-    mesurement_unit = models.CharField(max_length=64)
+    measurement_unit = models.CharField(max_length=64)
 
     class Meta:
         ordering = ['name']
-        unique_together = ('name', 'mesurement_unit')
+        unique_together = ('name', 'measurement_unit')
 
     def __str__(self):
-        return f'{self.name}: {self.mesurement_unit}'
+        return f'{self.name}: {self.measurement_unit}'
 
 
 class Recipe(models.Model):

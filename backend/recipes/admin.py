@@ -11,7 +11,7 @@ from recipes.models import (
 
 @admin.register(Ingredient)
 class Ingredient(admin.ModelAdmin):
-    list_display =('id', 'name', 'measurement_unit',)
+    list_display = ('id', 'name', 'measurement_unit',)
     search_fields = ('name',)
 
 @admin.register(Recipe)
@@ -47,7 +47,8 @@ class RecipeAdmin(admin.ModelAdmin):
     def author_username(self, obj):
         return obj.author.username
 
-@admin.register(RecipeIngredient)
-@admin.register(Favorite)
-@admin.register(ShoppingCart)
-@admin.register(Tag)
+
+admin.site.register(RecipeIngredient)
+admin.site.register(Favorite)
+admin.site.register(ShoppingCart)
+admin.site.register(Tag)

@@ -20,4 +20,5 @@ class UserAdmin(BaseUserAdmin):
         'username',
     )
 
-@admin.register(Subscription)
+
+admin.site.register(Subscription)
