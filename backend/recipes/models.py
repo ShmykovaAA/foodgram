@@ -38,6 +38,9 @@ class Recipe(models.Model):
         through='RecipeIngredient',
         related_name='recipes'
     )
+    image = models.ImageField(
+        upload_to='recipes/images/',
+    )
     tags = models.ManyToManyField(
         Tag,
         related_name='recipes'
