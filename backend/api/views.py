@@ -2,7 +2,6 @@ from api.filters import IngredientFilter, RecipeFilter
 from api.permissions import IsAuthorOrReadOnly
 from django.db.models import Sum
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from djoser.views import UserViewSet as DjoserViewSet
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingCart, Tag)
@@ -171,7 +170,7 @@ class UserViewSet(DjoserViewSet):
                 page, many=True, context={'request': request}
             )
             return self.get_paginated_response(serialazer.data)
-        
+
         serializer = UserWithRecipesSerializer(
             authors, many=True, context={'request': request}
         )
@@ -184,7 +183,7 @@ class UserViewSet(DjoserViewSet):
         if request.method == 'POST':
             if request.user == author:
                 return Response(
-                    {'errors':'Нельзя подписаться на себя'},
+                    {'errors': 'Нельзя подписаться на себя'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
             if Subscription.objects.filter(
