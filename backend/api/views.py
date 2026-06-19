@@ -165,8 +165,8 @@ class UserViewSet(DjoserViewSet):
     @action(
         detail=False,
         methods=('get',),
-        permission_classes=(IsAuthenticated),
-        url_path='subscription'
+        permission_classes=(IsAuthenticated,),
+        url_path='subscriptions'
     )
     def subscriptions(self, request):
         author_ids = Subscription.objects.filter(
@@ -211,7 +211,7 @@ class UserViewSet(DjoserViewSet):
             user=request.user,
             author=author
         )
-        if not subscription.exist():
+        if not subscription.exists():
             return Response(
                 {'errors': 'Вы не были подписаны на этого пользователя'},
                 status=status.HTTP_400_BAD_REQUEST

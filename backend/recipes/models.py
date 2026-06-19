@@ -72,7 +72,7 @@ class RecipeIngredient(models.Model):
         unique_together = ('recipe', 'ingredient')
 
     def __str__(self):
-        return f'{self.recipe} ____ {self.Ingredient}'
+        return f'{self.recipe} ____ {self.ingredient}'
 
 
 class Favorite(models.Model):
