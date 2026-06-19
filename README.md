@@ -1,6 +1,7 @@
 # Foodgram
 
 Foodgram — учебный проект для публикации рецептов.
+Ссылка на страницу проекта: http://kittygrammmyapr.servecounterstrike.com/recipes
 
 В проекте можно:
 
