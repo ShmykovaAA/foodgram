@@ -114,39 +114,41 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
         return self.remove_from_relation(request, ShoppingCart, recipe)
 
-@action(
-    detail=False,
-    methods=('get',),
-    url_path='download_shopping_cart'
-)
-def download_shopping_cart(self, request):
-    recipe_ids = ShoppingCart.objects.filter(
-        user=request.user
-    ).values_list('recipe_id', flat=True)
-
-    ingredients = RecipeIngredient.objects.filter(
-        recipe_id__in=recipe_ids
-    ).values(
-        'ingredient__name',
-        'ingredient__measurement_unit'
-    ).annotate(
-        total_amount=Sum('amount')
-    ).order_by('ingredient__name')
-    content = 'Список покупок\n\n'
-
-    for ingredient in ingredients:
-        name = ingredient['ingredient__name']
-        amount = ingredient['total_amount']
-        unit = ingredient['ingredient__measurement_unit']
-        content += f'{name} — {amount} {unit}\n'
-    response = HttpResponse(
-        content,
-        content_type='text/plain; charset=utf-8'
+    @action(
+        detail=False,
+        methods=('get',),
+        url_path='download_shopping_cart'
     )
-    response['Content-Disposition'] = (
-        'attachment; filename="shopping_cart.txt"'
-    )
-    return response
+    def download_shopping_cart(self, request):
+        recipe_ids = ShoppingCart.objects.filter(
+            user=request.user
+        ).values_list('recipe_id', flat=True)
+
+        ingredients = RecipeIngredient.objects.filter(
+            recipe_id__in=recipe_ids
+        ).values(
+            'ingredient__name',
+            'ingredient__measurement_unit'
+        ).annotate(
+            total_amount=Sum('amount')
+        ).order_by('ingredient__name')
+
+        content = 'Список покупок\n\n'
+
+        for ingredient in ingredients:
+            name = ingredient['ingredient__name']
+            amount = ingredient['total_amount']
+            unit = ingredient['ingredient__measurement_unit']
+            content += f'{name} — {amount} {unit}\n'
+
+        response = HttpResponse(
+            content,
+            content_type='text/plain; charset=utf-8'
+        )
+        response['Content-Disposition'] = (
+            'attachment; filename="shopping_cart.txt"'
+        )
+        return response
 
     @action(
         detail=True,
