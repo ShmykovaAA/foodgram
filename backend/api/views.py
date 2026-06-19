@@ -121,7 +121,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     )
     def download_shopping_cart(self, request):
         recipe_ids = ShoppingCart.objects.filter(
-            'user=request.user').values_list('recipe_id', flat=True)
+            user=request.user).values_list('recipe_id', flat=True)
         ingredients = RecipeIngredient.objects.filter(
             recipe_id__in=recipe_ids).values(
             'ingredient__name, ingredient__measurement_unit').annotate(
