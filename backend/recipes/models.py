@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.db import models
 
-
 TAG_NAME_MAX_LENGTH = 32
 TAG_SLUG_MAX_LENGTH = 32
 
