@@ -2,7 +2,13 @@ from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 
-from recipes.models import Favorite, Recipe, RecipeIngredient, ShoppingCart, Tag
+from recipes.models import (
+    Favorite,
+    Recipe,
+    RecipeIngredient,
+    ShoppingCart,
+    Tag
+)
 
 
 class RecipeAdminForm(forms.ModelForm):
