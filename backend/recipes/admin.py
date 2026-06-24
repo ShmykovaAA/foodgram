@@ -2,13 +2,8 @@ from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 
-from recipes.models import (
-    Favorite,
-    Recipe,
-    RecipeIngredient,
-    ShoppingCart,
-    Tag
-)
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingCart, Tag)
 
 
 class RecipeAdminForm(forms.ModelForm):
@@ -79,6 +74,19 @@ class RecipeIngredientInline(admin.TabularInline):
     extra = 1
     min_num = 1
     validate_min = True
+
+
+@admin.register(Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'measurement_unit',
+    )
+    search_fields = (
+        'name',
+        'measurement_unit',
+    )
 
 
 @admin.register(Recipe)
