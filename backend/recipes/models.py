@@ -84,13 +84,6 @@ class Recipe(models.Model):
         auto_now_add=True,
         verbose_name='Дата публикации'
     )
-    short_link = models.SlugField(
-        max_length=16,
-        unique=True,
-        blank=True,
-        null=True,
-        verbose_name='Короткая ссылка',
-    )
 
     class Meta:
         ordering = ('-pub_date',)
