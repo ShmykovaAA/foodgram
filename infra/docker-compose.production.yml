@@ -8,6 +8,7 @@ volumes:
 services:
   db:
     image: postgres:15
+    restart: always
     env_file:
       - .env
     volumes:
@@ -15,6 +16,7 @@ services:
 
   backend:
     image: anyashmykova/foodgram_backend:latest
+    restart: always
     env_file:
       - .env
     volumes:
@@ -25,12 +27,14 @@ services:
 
   frontend:
     image: anyashmykova/foodgram_frontend:latest
+    restart: always
     container_name: foodgram-front
     volumes:
       - ../frontend/:/app/result_build/
 
   nginx:
     image: anyashmykova/foodgram_gateway:latest
+    restart: always
     container_name: foodgram-proxy
     ports:
       - "80:80"
