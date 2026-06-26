@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.http import HttpResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from djoser.views import UserViewSet as DjoserViewSet
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -161,7 +161,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         recipe = self.get_object()
         short_link = request.build_absolute_uri(f'/s/{recipe.id}/')
         return Response({'short-link': short_link})
-    
+
 
 class UserViewSet(DjoserViewSet):
     @action(
