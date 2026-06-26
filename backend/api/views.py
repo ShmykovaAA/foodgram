@@ -176,10 +176,10 @@ class UserViewSet(DjoserViewSet):
         authors = User.objects.filter(id__in=author_ids)
         page = self.paginate_queryset(authors)
         if page is not None:
-            serialazer = UserWithRecipesSerializer(
+            serializer = UserWithRecipesSerializer(
                 page, many=True, context={'request': request}
             )
-            return self.get_paginated_response(serialazer.data)
+            return self.get_paginated_response(serializer.data)
 
         serializer = UserWithRecipesSerializer(
             authors, many=True, context={'request': request}
