@@ -156,3 +156,10 @@ DJOSER = {
     },
     'HIDE_USERS': False,
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://kittygrammmyapr.servecounterstrike.com',
+    'https://kittygrammmyapr.servecounterstrike.com',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
