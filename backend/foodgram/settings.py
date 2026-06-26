@@ -149,4 +149,5 @@ DJOSER = {
         'current_user': 'users.serializers.UserSerializer',
         'set_password': 'djoser.serializers.SetPasswordSerializer',
     },
+    'HIDE_USERS': False,
 }

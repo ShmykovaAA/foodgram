@@ -1,23 +1,20 @@
 from django.conf import settings
 from django.db import models
 
-TAG_NAME_MAX_LENGTH = 32
-TAG_SLUG_MAX_LENGTH = 32
-
+LINK_MAX_LENGTH = 16
+TAG_MAX_LENGTH = 32
+RECIPE_AND_UNIT_MAX_LENGTH = 64
 INGREDIENT_NAME_MAX_LENGTH = 128
-MEASUREMENT_UNIT_MAX_LENGTH = 64
-
-RECIPE_NAME_MAX_LENGTH = 64
 
 
 class Tag(models.Model):
     name = models.CharField(
-        max_length=TAG_NAME_MAX_LENGTH,
+        max_length=TAG_MAX_LENGTH,
         unique=True,
         verbose_name='Название'
     )
     slug = models.SlugField(
-        max_length=TAG_SLUG_MAX_LENGTH,
+        max_length=TAG_MAX_LENGTH,
         unique=True,
         verbose_name='Слаг'
     )
@@ -37,7 +34,7 @@ class Ingredient(models.Model):
         verbose_name='Название'
     )
     measurement_unit = models.CharField(
-        max_length=MEASUREMENT_UNIT_MAX_LENGTH,
+        max_length=RECIPE_AND_UNIT_MAX_LENGTH,
         verbose_name='Единица измерения'
     )
 
@@ -59,7 +56,7 @@ class Recipe(models.Model):
         verbose_name='Автор'
     )
     name = models.CharField(
-        max_length=RECIPE_NAME_MAX_LENGTH,
+        max_length=RECIPE_AND_UNIT_MAX_LENGTH,
         verbose_name='Название'
     )
     text = models.TextField(
@@ -86,6 +83,13 @@ class Recipe(models.Model):
     pub_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата публикации'
+    )
+    short_link = models.SlugField(
+        max_length=16,
+        unique=True,
+        blank=True,
+        null=True,
+        verbose_name='Короткая ссылка',
     )
 
     class Meta:
