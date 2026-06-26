@@ -165,6 +165,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(DjoserViewSet):
     queryset = User.objects.all()
+    permission_classes = (AllowAny,)
 
     @action(
         detail=False,
