@@ -1,3 +1,4 @@
+from django.db import transaction
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
@@ -157,13 +158,15 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         self.create_ingredients(recipe, ingredients)
         return recipe
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')
+        instance = super().update(instance, validated_data)
         instance.tags.set(tags)
         instance.recipe_ingredient.all().delete()
         self.create_ingredients(instance, ingredients)
-        return super().update(instance, validated_data)
+        return instance
 
     def to_representation(self, instance):
         return RecipeReadSerializer(instance, context=self.context,).data

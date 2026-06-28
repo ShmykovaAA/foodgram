@@ -19,6 +19,19 @@ class UserAdmin(BaseUserAdmin):
         'email',
         'username',
     )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': (
+                'username',
+                'email',
+                'first_name',
+                'last_name',
+                'password1',
+                'password2',
+            ),
+        }),
+    )
 
 
 admin.site.register(Subscription)

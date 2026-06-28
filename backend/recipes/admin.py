@@ -49,13 +49,25 @@ class RecipeIngredientInlineFormSet(BaseInlineFormSet):
             ingredient = form.cleaned_data.get('ingredient')
             amount = form.cleaned_data.get('amount')
 
-            if ingredient:
-                ingredients.append(ingredient)
+            if ingredient is None and amount is None:
+                continue
+
+            if ingredient is None:
+                raise forms.ValidationError(
+                    'Выберите ингредиент'
+                )
+
+            if amount is None:
+                raise forms.ValidationError(
+                    'Укажите количество ингредиента'
+                )
 
             if amount < 1:
                 raise forms.ValidationError(
                     'Количество ингредиента должно быть не меньше 1'
                 )
+            
+            ingredients.append(ingredient)
 
         if not ingredients:
             raise forms.ValidationError(
