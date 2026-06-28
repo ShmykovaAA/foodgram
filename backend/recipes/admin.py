@@ -66,7 +66,7 @@ class RecipeIngredientInlineFormSet(BaseInlineFormSet):
                 raise forms.ValidationError(
                     'Количество ингредиента должно быть не меньше 1'
                 )
-            
+
             ingredients.append(ingredient)
 
         if not ingredients:
