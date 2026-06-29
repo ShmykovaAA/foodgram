@@ -111,6 +111,33 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             'cooking_time',
         )
 
+    def validate(self, data):
+        required_fields = (
+            'ingredients',
+            'tags',
+            'image',
+            'name',
+            'text',
+            'cooking_time',
+        )
+
+        if self.instance is not None:
+            errors = {}
+
+            for field in required_fields:
+                if field not in self.initial_data:
+                    errors[field] = 'Это поле обязательно.'
+
+            if errors:
+                raise serializers.ValidationError(errors)
+
+        if 'image' in self.initial_data and not self.initial_data.get('image'):
+            raise serializers.ValidationError({
+                'image': 'Изображение обязательно.'
+            })
+
+        return data
+
     def validate_ingredients(self, ingredients):
         if not ingredients:
             raise serializers.ValidationError('Нужно добавить ингредиенты')
