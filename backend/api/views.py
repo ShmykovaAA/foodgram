@@ -165,6 +165,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(DjoserViewSet):
     queryset = User.objects.all()
+
     def get_permissions(self):
         if self.action in ('me', 'set_password', 'subscriptions'):
             return (IsAuthenticated(),)
@@ -251,4 +252,3 @@ class UserViewSet(DjoserViewSet):
 def redirect_short_link(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     return redirect(f'/recipes/{recipe.id}')
-
