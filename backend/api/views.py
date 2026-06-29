@@ -165,7 +165,14 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(DjoserViewSet):
     queryset = User.objects.all()
-    permission_classes = (AllowAny,)
+    def get_permissions(self):
+        if self.action in ('me', 'set_password', 'subscriptions'):
+            return (IsAuthenticated(),)
+
+        if self.action in ('subscribe', 'avatar'):
+            return (IsAuthenticated(),)
+
+        return (AllowAny(),)
 
     @action(
         detail=False,
